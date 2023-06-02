@@ -21,6 +21,7 @@ const authApiSlice = apiSlice.injectEndpoints({
 	endpoints: builder => ({
 		retrieveUser: builder.query<User, void>({
 			query: () => '/users/me/',
+			providesTags: ['User'],
 		}),
 		socialAuthenticate: builder.mutation<
 			CreateUserResponse,
@@ -43,6 +44,7 @@ const authApiSlice = apiSlice.injectEndpoints({
 				method: 'POST',
 				body: { email, password },
 			}),
+			invalidatesTags: ['User'],
 		}),
 		register: builder.mutation({
 			query: ({
@@ -68,6 +70,7 @@ const authApiSlice = apiSlice.injectEndpoints({
 				url: '/logout/',
 				method: 'POST',
 			}),
+			invalidatesTags: ['User'],
 		}),
 		activation: builder.mutation({
 			query: ({ uid, token }) => ({
